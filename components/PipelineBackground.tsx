@@ -28,7 +28,7 @@ const PipelineBackground: React.FC = () => {
     const canvasB = canvasBRef.current;
     const ctxA = canvasA.getContext('2d')!;
     const ctxB = canvasB.getContext('2d')!;
-    let center: number[] = [];
+    const center: number[] = [];
     let tick = 0;
     let pipeProps: Float32Array;
 
@@ -40,14 +40,14 @@ const PipelineBackground: React.FC = () => {
     };
 
     const initPipe = (i: number) => {
-      let x = Math.random() * canvasA.width;
-      let y = center[1];
-      let direction = (Math.round(Math.random()) ? Math.PI / 2 : Math.PI * 2 - Math.PI / 2);
-      let speed = baseSpeed + Math.random() * rangeSpeed;
-      let life = 0;
-      let ttl = baseTTL + Math.random() * rangeTTL;
-      let width = baseWidth + Math.random() * rangeWidth;
-      let hue = baseHue + Math.random() * rangeHue;
+      const x = Math.random() * canvasA.width;
+      const y = center[1];
+      const direction = (Math.round(Math.random()) ? Math.PI / 2 : Math.PI * 2 - Math.PI / 2);
+      const speed = baseSpeed + Math.random() * rangeSpeed;
+      const life = 0;
+      const ttl = baseTTL + Math.random() * rangeTTL;
+      const width = baseWidth + Math.random() * rangeWidth;
+      const hue = baseHue + Math.random() * rangeHue;
 
       pipeProps.set([x, y, direction, speed, life, ttl, width, hue], i);
     };

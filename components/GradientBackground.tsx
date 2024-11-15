@@ -46,18 +46,18 @@ const GradientBackground: React.FC = () => {
     };
 
     const initCircle = (i: number) => {
-        let x = Math.random() * canvasA.width;
-        let y = Math.random() * canvasA.height;
-        let n = noise3D(x * xOff, y * yOff, baseHue * zOff);
-        // let n = noise3D({ x: x * xOff, y: y * yOff, z: baseHue * zOff });
-        let t = Math.random() * Math.PI * 2;
-        let speed = baseSpeed + Math.random() * rangeSpeed;
-        let vx = speed * Math.cos(t);
-        let vy = speed * Math.sin(t);
-        let life = 0;
-        let ttl = baseTTL + Math.random() * rangeTTL;
-        let radius = baseRadius + Math.random() * rangeRadius;
-        let hue = baseHue + n * rangeHue;
+        const x = Math.random() * canvasA.width;
+        const y = Math.random() * canvasA.height;
+        const n = noise3D(x * xOff, y * yOff, baseHue * zOff);
+        // const n = noise3D({ x: x * xOff, y: y * yOff, z: baseHue * zOff });
+        const t = Math.random() * Math.PI * 2;
+        const speed = baseSpeed + Math.random() * rangeSpeed;
+        const vx = speed * Math.cos(t);
+        const vy = speed * Math.sin(t);
+        const life = 0;
+        const ttl = baseTTL + Math.random() * rangeTTL;
+        const radius = baseRadius + Math.random() * rangeRadius;
+        const hue = baseHue + n * rangeHue;
 
         circleProps.set([x, y, vx, vy, life, ttl, radius, hue], i);
     };
@@ -136,7 +136,7 @@ const GradientBackground: React.FC = () => {
     };
 
     const fadeInOut = (t: number, m: number) => {
-      let hm = 0.5 * m;
+      const hm = 0.5 * m;
       return Math.abs((t + hm) % m - hm) / hm;
     };
 
