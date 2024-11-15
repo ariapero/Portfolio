@@ -71,7 +71,10 @@ const GradientBackground: React.FC = () => {
     };
 
     const updateCircle = (i: number) => {
-      let [x, y, vx, vy, life, ttl, radius, hue] = circleProps.slice(i, i + circlePropCount);
+      // let [x, y, vx, vy, life, ttl, radius, hue] = circleProps.slice(i, i + circlePropCount);
+      const [x, y, vx, vy] = circleProps.slice(i, i + 4);
+      let life = circleProps[i + 4];
+      const [ttl, radius, hue] = circleProps.slice(i + 5, i + circlePropCount);
 
       drawCircle(x, y, life, ttl, radius, hue);
 

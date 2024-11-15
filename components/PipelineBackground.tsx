@@ -60,15 +60,23 @@ const PipelineBackground: React.FC = () => {
     };
 
     const updatePipe = (i: number) => {
-      let [x, y, direction, speed, life, ttl, width, hue] = pipeProps.slice(i, i + pipePropCount);
+      // let [x, y, direction, speed, life, ttl, width, hue] = pipeProps.slice(i, i + pipePropCount);
+      let x = pipeProps[i];
+      let y = pipeProps[i + 1];
+      let direction = pipeProps[i + 2];
+      const speed = pipeProps[i + 3];
+      let life = pipeProps[i + 4];
+      const ttl = pipeProps[i + 5];
+      const width = pipeProps[i + 6];
+      const hue = pipeProps[i + 7];
 
       drawPipe(x, y, life, ttl, width, hue);
 
       life++;
       x += Math.cos(direction) * speed;
       y += Math.sin(direction) * speed;
-      let turnChance = !(tick % Math.round(Math.random() * turnChanceRange)) && (!(Math.round(x) % 6) || !(Math.round(y) % 6));
-      let turnBias = Math.round(Math.random()) ? -1 : 1;
+      const turnChance = !(tick % Math.round(Math.random() * turnChanceRange)) && (!(Math.round(x) % 6) || !(Math.round(y) % 6));
+      const turnBias = Math.round(Math.random()) ? -1 : 1;
       direction += turnChance ? turnAmount * turnBias : 0;
 
       pipeProps.set([x, y, direction, speed, life, ttl, width, hue], i);
@@ -134,7 +142,7 @@ const PipelineBackground: React.FC = () => {
     };
 
     const fadeInOut = (t: number, m: number) => {
-      let hm = 0.5 * m;
+      const hm = 0.5 * m;
       return Math.abs((t + hm) % m - hm) / hm;
     };
 
