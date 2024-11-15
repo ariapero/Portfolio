@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from 'next/link'
-import { ArrowRight, Instagram, Linkedin, GraduationCap, Megaphone } from 'lucide-react'
+import { ArrowRight, Instagram, Linkedin, GraduationCap, Megaphone, Github } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export default function Page() {
@@ -104,6 +104,14 @@ export default function Page() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
           >
+            <a 
+              href="https://github.com/ariapero" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-white hover:text-[#238177] transition-colors duration-300"
+            >
+              <Github size={28} />
+            </a>
             <a 
               href="https://www.linkedin.com/in/ari-pero" 
               target="_blank" 
