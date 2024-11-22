@@ -32,6 +32,7 @@ export default function Page() {
             <Preloader key="preloader" onLoadingComplete={() => setIsLoading(false)} />
         ) : ( */}
         <AnimatePresence>
+        {/* <AnimatePresence mode="wait"> */}
             {!isLoading && (
                 <motion.div
                     key="content"
