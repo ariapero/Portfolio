@@ -12,7 +12,7 @@ export default function Page() {
                 className="inline-flex items-center font-ncl z-50 text-white hover:text-[#AAFF00] transition-colors"
             >
                 <ArrowLeft className="mr-2" size={20} />
-                Back to Work
+                BAck to woRk
             </Link>
             {/* <h1 className="font-ncl">ARIAPERO</h1> */}
             <p className="text-xs ml-2 opacity-75">42°21'36.36"N 71°5'39.12"E</p>
@@ -35,7 +35,7 @@ export default function Page() {
                   className="w-full object-cover"
                 />
               </div>
-              <div className="space-y-2 font-ncl">
+              <div className="space-y-1 font-ncl">
                 <div className="text-[#AAFF00] text-4xl font-bold tracking-wider transform skew-x-12">
                   MODULAR
                 </div>
@@ -50,15 +50,15 @@ export default function Page() {
   
             {/* Right Section - White Text */}
             <div className="space-y-6">
-              <div className="space-y-2 font-ncl">
+              <div className="space-y-1 font-ncl">
                 <div className="text-white text-4xl font-bold tracking-wider transform skew-x-12">
-                  MODULAR
+                  modular
                 </div>
                 <div className="text-white text-4xl font-bold tracking-wider transform skew-x-12">
-                  CLOTHING
+                  clothing
                 </div>
                 <div className="text-white text-4xl font-bold tracking-wider transform skew-x-12">
-                  DESIGN
+                  design
                 </div>
               </div>
               <div className="bg-black border border-[#333] rounded-lg overflow-hidden w-full max-w-md mt-8 aspect-square">
@@ -88,13 +88,12 @@ export default function Page() {
             </div>
           </div>
   
-          {/* Font Styles List */}
           <div className="grid grid-cols-2 gap-8 mt-8">
             <div className="space-y-2 text-sm">
               <p>+ CUT & RE-HEMMED</p>
-              <p>+ CROPPED</p>
-              <p>+ ARCHED</p>
-              <p>+ FOUR SIDES</p>
+              <p>+ CREWNECK SWEATSHIRT</p>
+              <p>+ INTO ARCHES</p>
+              <p>+ ON FOUR SIDES</p>
             </div>
             <div className="space-y-2 text-sm">
               <p>+ INTERCHANGEABLE STUFFED ACCESSORIES</p>
