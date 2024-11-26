@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, DivideCircle, X } from "lucide-react";
 
 const projects = [
   //   {
@@ -115,27 +115,6 @@ const projects = [
     category: "GRAPHIC DESIGN",
     details: "06.320032.10",
   },
-  // {
-  //   title: "ARCHIVE",
-  //   description:
-  //     "Archived graphics work 2014-2018: https://soulmaets.tumblr.com/tagged/mine",
-  //   images: [
-  //     "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/a5cbea73-958c-41ce-9f88-eb13ddac9068.png?h=d26f216b5b4d493aa6fbcb1b79cffb35",
-  //   ],
-  //   year: "2014-2018",
-  //   category: "GRAPHIC DESIGN",
-  //   details: "07.420042.11",
-  // },
-  //   {
-  //     title: "ARCHIVE",
-  //     description: "Archived graphics work 2014-2018",
-  //     images: [
-  //       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/a5cbea73-958c-41ce-9f88-eb13ddac9068.png?h=d26f216b5b4d493aa6fbcb1b79cffb35",
-  //     ],
-  //     year: "2014-2018",
-  //     category: "GRAPHIC DESIGN",
-  //     details: "08.430043.12"
-  //   },
 ];
 
 const ProjectSection = ({
@@ -158,12 +137,12 @@ const ProjectSection = ({
       if (!isHovered) {
         nextImage();
       }
-    }, 2000);
+    }, 2200);
     return () => clearInterval(timer);
   }, [isHovered]);
 
   return (
-    <div className="h-screen w-full flex items-center bg-black snap-start">
+    <div className="min-h-screen w-full flex items-center bg-black snap-start">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-16">
         <div
           className="relative h-[80vh] w-full"
@@ -182,7 +161,7 @@ const ProjectSection = ({
                 objectPosition: "center",
               }}
             />
-            {/* Cyberpunk overlay elements */}
+            {/* Overlay elements */}
             <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-0 pointer-events-none">
               {Array.from({ length: 36 }).map((_, i) => (
                 <div key={i} className="relative w-full h-full flex items-center justify-center">
@@ -195,13 +174,6 @@ const ProjectSection = ({
             <>
               <button
                 className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
-                // onClick={() =>
-                //   setCurrentImage(
-                //     (prev) =>
-                //       (prev - 1 + project.images.length) % project.images.length
-                //   )
-                // }
-
                 onClick={(e) => {
                   e.stopPropagation()
                   setCurrentImage((prev) => (prev - 1 + project.images.length) % project.images.length)
@@ -274,7 +246,7 @@ const ProjectSection = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center"
             onClick={() => {
               setShowDetails(false)
               setExpandedImageIndex(null)
@@ -284,45 +256,43 @@ const ProjectSection = ({
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#000] p-8 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+              // className="bg-[#000] p-8 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+              className="bg-neutral-900 p-8 rounded-lg w-[80vw] h-[85vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <h2 className="text-3xl font-bold font-mono mb-4 text-[#ffff00]">
-                {project.title}
-              </h2>
-              <p className="text-white font-mono mb-4">{project.description}</p>
-              {/* SHOULD BE ABLE TO CLICK IMAGES TO EXPAND AND SCROLL THROUGH THEM THAT WAY */}
-              {/* <div className="grid grid-cols-2 gap-4"> */}
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h2 className="text-3xl font-bold font-mono mb-4 text-[#ffff00]">
+                    {project.title}
+                  </h2>
+                  <p className="text-white font-mono mb-2">{project.description}</p>
+                </div>
+                <button
+                  className="text-white hover:text-[#ffff00]"
+                  onClick={() => setShowDetails(false)}
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="columns-2 md:columns-3 lg:columns-4 gap-2 space-y-2">
                 {project.images.map((img, i) => (
-                  // <Image
-                  //   key={i}
-                  //   src={img}
-                  //   alt={`${project.title} ${i + 1}`}
-                  //   width={300}
-                  //   height={200}
-                  //   className="object-cover rounded"
-                  // />
                   <div
                     key={i}
-                    className="relative aspect-square cursor-pointer"
+                    className="break-inside-avoid cursor-pointer hover:opacity-80 transition-opacity"
                     onClick={() => setExpandedImageIndex(i)}
                   >
                     <Image
                       src={img}
                       alt={`${project.title} ${i + 1}`}
-                      fill
-                      className="object-cover"
+                      width={800}
+                      height={600}
+                      className="w-full lg"
+                      style={{ objectFit: 'cover' }}
                     />
                   </div>
                 ))}
               </div>
-              <button
-                className="mt-6 bg-[#ffff00] text-black font-mono px-4 py-2 rounded"
-                onClick={() => setShowDetails(false)}
-              >
-                Close
-              </button>
             </motion.div>
           </motion.div>
         )}
@@ -337,7 +307,7 @@ const ProjectSection = ({
             className="fixed inset-0 bg-black/95 z-[60] flex items-center justify-center"
             onClick={() => setExpandedImageIndex(null)}
           >
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full flex items-center justify-center">
               <Image
                 src={project.images[expandedImageIndex]}
                 alt={`${project.title} ${expandedImageIndex + 1}`}
@@ -345,13 +315,13 @@ const ProjectSection = ({
                 className="object-contain"
               />
               <button
-                className="absolute top-4 right-4 text-white"
+                className="absolute top-4 right-4 text-white hover:text-[#ffff00]"
                 onClick={() => setExpandedImageIndex(null)}
               >
                 <X size={24} />
               </button>
               <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:text-[#ffff00]"
                 onClick={(e) => {
                   e.stopPropagation()
                   setExpandedImageIndex((prev) => (prev! - 1 + project.images.length) % project.images.length)
@@ -360,7 +330,7 @@ const ProjectSection = ({
                 <ChevronLeft />
               </button>
               <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:text-[#ffff00]"
                 onClick={(e) => {
                   e.stopPropagation()
                   setExpandedImageIndex((prev) => (prev! + 1) % project.images.length)
@@ -372,10 +342,52 @@ const ProjectSection = ({
           </motion.div>
         )}
       </AnimatePresence>
-
     </div>
   );
 };
+
+const ArchiveSection = () => {
+  return (
+    <div className="h-screen w-full flex flex-col items-center justify-center bg-black snap-start">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center space-y-8"
+      >
+        <h2 className="text-4xl md:text-5xl font-mono text-[#ffff00]">
+          Archived graphics work 2014-2018:
+        </h2>
+        <Link
+          href="https://soulmaets.tumblr.com/tagged/mine"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block"
+        >
+          <motion.button
+            className="px-8 py-3 bg-gray-200 hover:bg-[#ffff00] text-black font-ncl rounded-full text-lg transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            ARchIVe
+          </motion.button>
+        </Link>
+
+        <footer className="fixed bottom-0 left-0 w-full pb-4 pl-4 pr-8 flex justify-between items-center mt-8 text-white font-mono">
+          <Link href="/" className="hover:underline">
+            HTTPS://ARIAPERO.GITHUB.IO
+          </Link>
+          <div>
+            © 2024 Ari Peró. All rights reserved.
+          </div>
+          <a href="mailto:ariapero@mit.edu" className="hover:underline">
+            MAILTO:ARIAPERO@MIT.EDU
+          </a>
+        </footer>
+      </motion.div>
+    </div>
+  )
+}
 
 export default function DesignPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -399,6 +411,7 @@ export default function DesignPage() {
         {projects.map((project, index) => (
           <ProjectSection key={index} project={project} index={index} />
         ))}
+        <ArchiveSection />
       </div>
 
       <button
@@ -422,27 +435,6 @@ export default function DesignPage() {
           />
         </svg>
       </button>
-
-      {/* link/button at end of page to redirect to archived works */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <Link 
-          href="https://soulmaets.tumblr.com/tagged/mine" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center text-white font-ncl hover:text-[#ffff00] transition-colors"
-        >
-          View Archived Works (2014-2018)
-        </Link>
-      </div>
-      {/* <div className="fixed bottom-8 right-8 z-50">
-            <Link 
-                href="/work/archive" 
-                className="inline-flex items-center text-white font-ncl hover:text-[#ffff00] transition-colors"
-            >
-                <ArrowLeft className="mr-2" size={20} />
-                View Archived Works
-            </Link>
-        </div> */}
     </div>
   );
 }
