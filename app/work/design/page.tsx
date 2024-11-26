@@ -1,24 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ChevronLeft, ChevronRight, DivideCircle, X } from "lucide-react";
 
 const projects = [
-  //   {
-  //     title: "ACTIVE COMMUNITY ENGAGEMENT",
-  //     description: "Sticker + shirt design for MIT freshman pre-orientation program.",
-  //     images: [
-  //       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/289b8542-8333-402c-a750-a82941f95a27_rw_1200.png?h=2a67fbd6567e0d610d5cbf90a21044d5",
-  //       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/39d109de-627e-4bb7-9d7c-f0f8391c0387_rw_1200.png?h=5d09134ec64c668a246a898c0b17f726",
-  //       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/b89c3346-a94b-4b38-91d2-377c632ef844_rw_1200.jpg?h=4283c28491c77be456fe16a528a111da",
-  //     ],
-  //     year: "2023",
-  //     category: "MERCH GRAPHIC",
-  //     details: "01.240024.05"
-  //   },
   {
     title: "ACTIVE COMMUNITY ENGAGEMENT (ACE)",
     description:
@@ -83,7 +71,7 @@ const projects = [
   {
     title: "STEER ROAST",
     description:
-      "Branding and postcard design for a retro-inspired musi festival and community reunion.",
+      "Branding and postcard design for a retro punk-inspired music festival and community reunion.",
     images: [
       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/d23653f8-9942-4b89-9655-590e7aa05dc8.png?h=8ae2e95076b2d5898b4cdfa0ed5d5d8e",
       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/db6a0b27-4154-41d1-a319-4ed26cca5301.png?h=d03593b9bc9cca6b886db316217625f7",
@@ -128,21 +116,49 @@ const ProjectSection = ({
   const [showDetails, setShowDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [expandedImageIndex, setExpandedImageIndex] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  const nextImage = () =>
-    setCurrentImage((prev) => (prev + 1) % project.images.length);
+  // const nextImage = () =>
+  //   setCurrentImage((prev) => (prev + 1) % project.images.length);
+
+  const nextImage = useCallback(() => {
+    setCurrentImage((prev) => (prev + 1) % project.images.length)
+  }, [project.images.length])
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (!isHovered) {
-        nextImage();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.5 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
       }
-    }, 2200);
-    return () => clearInterval(timer);
-  }, [isHovered]);
+    }
+  }, []);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null
+    if (isVisible && !isHovered) {
+      timer = setInterval(() => {
+        nextImage()
+      }, 2000)
+    }
+    return () => {
+      if (timer) clearInterval(timer)
+    }
+  }, [isVisible, isHovered, nextImage])
 
   return (
-    <div className="min-h-screen w-full flex items-center bg-black snap-start">
+    <div ref={sectionRef} className="min-h-screen w-full flex items-center bg-black snap-start">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-16">
         <div
           className="relative h-[80vh] w-full"
@@ -350,7 +366,7 @@ const ArchiveSection = () => {
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center bg-black snap-start">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 0 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="text-center space-y-8"
