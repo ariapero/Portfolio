@@ -24,9 +24,9 @@ const projects = [
     description:
       "Sticker + shirt designs for MIT ACE: a freshman pre-orientation program.",
     images: [
-      "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/289b8542-8333-402c-a750-a82941f95a27_rw_1200.png?h=2a67fbd6567e0d610d5cbf90a21044d5",
-      "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/39d109de-627e-4bb7-9d7c-f0f8391c0387_rw_1200.png?h=5d09134ec64c668a246a898c0b17f726",
-      "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/b89c3346-a94b-4b38-91d2-377c632ef844_rw_1200.jpg?h=4283c28491c77be456fe16a528a111da",
+      "/2023_ACE_FRONT.png",
+      "/2023_ACE_BACK.png",
+      "/2023_ACE_PRINTED.png",
       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/e850dfc4-9e37-45ac-a51d-67f7f9a29f32_rw_1200.png?h=d8c8db6946d359225cab6b4d662cdba9",
       "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/0a6d97a6-ed2d-4cbd-a6d0-57567122d181_rw_1200.png?h=06ff919c20095b1a6c6f22e90ae8776d",
     ],
@@ -115,17 +115,17 @@ const projects = [
     category: "GRAPHIC DESIGN",
     details: "06.320032.10",
   },
-  {
-    title: "ARCHIVE",
-    description:
-      "Archived graphics work 2014-2018: https://soulmaets.tumblr.com/tagged/mine",
-    images: [
-      "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/a5cbea73-958c-41ce-9f88-eb13ddac9068.png?h=d26f216b5b4d493aa6fbcb1b79cffb35",
-    ],
-    year: "2014-2018",
-    category: "GRAPHIC DESIGN",
-    details: "07.420042.11",
-  },
+  // {
+  //   title: "ARCHIVE",
+  //   description:
+  //     "Archived graphics work 2014-2018: https://soulmaets.tumblr.com/tagged/mine",
+  //   images: [
+  //     "https://cdn.myportfolio.com/1e4e6370-269d-4446-8e3a-00bc90e58c53/a5cbea73-958c-41ce-9f88-eb13ddac9068.png?h=d26f216b5b4d493aa6fbcb1b79cffb35",
+  //   ],
+  //   year: "2014-2018",
+  //   category: "GRAPHIC DESIGN",
+  //   details: "07.420042.11",
+  // },
   //   {
   //     title: "ARCHIVE",
   //     description: "Archived graphics work 2014-2018",
@@ -148,6 +148,7 @@ const ProjectSection = ({
   const [currentImage, setCurrentImage] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [expandedImageIndex, setExpandedImageIndex] = useState<number | null>(null);
 
   const nextImage = () =>
     setCurrentImage((prev) => (prev + 1) % project.images.length);
@@ -157,7 +158,7 @@ const ProjectSection = ({
       if (!isHovered) {
         nextImage();
       }
-    }, 1800);
+    }, 2000);
     return () => clearInterval(timer);
   }, [isHovered]);
 
@@ -168,6 +169,7 @@ const ProjectSection = ({
           className="relative h-[80vh] w-full"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={() => setShowDetails(true)}
         >
           <div className="absolute inset-0">
             <Image
@@ -177,15 +179,14 @@ const ProjectSection = ({
               className="object-cover transition-all duration-300"
               style={{
                 filter: isHovered ? "none" : "grayscale(100%)",
+                objectPosition: "center",
               }}
             />
             {/* Cyberpunk overlay elements */}
-            <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-4 p-4 pointer-events-none">
-              {Array.from({ length: 42 }).map((_, i) => (
-                <div key={i} className="relative">
-                  <span className="absolute w-2 h-2 text-[#ff00ff] font-bold opacity-70">
-                    +
-                  </span>
+            <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-0 pointer-events-none">
+              {Array.from({ length: 36 }).map((_, i) => (
+                <div key={i} className="relative w-full h-full flex items-center justify-center">
+                  <span className="absolute text-[#ff00ff] font-bold opacity-70 text-xl">+</span>
                 </div>
               ))}
             </div>
@@ -194,18 +195,28 @@ const ProjectSection = ({
             <>
               <button
                 className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
-                onClick={() =>
-                  setCurrentImage(
-                    (prev) =>
-                      (prev - 1 + project.images.length) % project.images.length
-                  )
-                }
+                // onClick={() =>
+                //   setCurrentImage(
+                //     (prev) =>
+                //       (prev - 1 + project.images.length) % project.images.length
+                //   )
+                // }
+
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setCurrentImage((prev) => (prev - 1 + project.images.length) % project.images.length)
+                }}
               >
                 <ChevronLeft />
               </button>
               <button
                 className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
-                onClick={nextImage}
+                // onClick={nextImage}
+
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextImage()
+                }}
               >
                 <ChevronRight />
               </button>
@@ -264,7 +275,10 @@ const ProjectSection = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
-            onClick={() => setShowDetails(false)}
+            onClick={() => {
+              setShowDetails(false)
+              setExpandedImageIndex(null)
+            }}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -277,16 +291,30 @@ const ProjectSection = ({
                 {project.title}
               </h2>
               <p className="text-white font-mono mb-4">{project.description}</p>
-              <div className="grid grid-cols-2 gap-4">
+              {/* SHOULD BE ABLE TO CLICK IMAGES TO EXPAND AND SCROLL THROUGH THEM THAT WAY */}
+              {/* <div className="grid grid-cols-2 gap-4"> */}
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
                 {project.images.map((img, i) => (
-                  <Image
+                  // <Image
+                  //   key={i}
+                  //   src={img}
+                  //   alt={`${project.title} ${i + 1}`}
+                  //   width={300}
+                  //   height={200}
+                  //   className="object-cover rounded"
+                  // />
+                  <div
                     key={i}
-                    src={img}
-                    alt={`${project.title} ${i + 1}`}
-                    width={300}
-                    height={200}
-                    className="object-cover rounded"
-                  />
+                    className="relative aspect-square cursor-pointer"
+                    onClick={() => setExpandedImageIndex(i)}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${project.title} ${i + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 ))}
               </div>
               <button
@@ -299,6 +327,52 @@ const ProjectSection = ({
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {expandedImageIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/95 z-[60] flex items-center justify-center"
+            onClick={() => setExpandedImageIndex(null)}
+          >
+            <div className="relative w-full h-full">
+              <Image
+                src={project.images[expandedImageIndex]}
+                alt={`${project.title} ${expandedImageIndex + 1}`}
+                fill
+                className="object-contain"
+              />
+              <button
+                className="absolute top-4 right-4 text-white"
+                onClick={() => setExpandedImageIndex(null)}
+              >
+                <X size={24} />
+              </button>
+              <button
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setExpandedImageIndex((prev) => (prev! - 1 + project.images.length) % project.images.length)
+                }}
+              >
+                <ChevronLeft />
+              </button>
+              <button
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setExpandedImageIndex((prev) => (prev! + 1) % project.images.length)
+                }}
+              >
+                <ChevronRight />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 };
@@ -314,7 +388,7 @@ export default function DesignPage() {
           className="inline-flex items-center text-white font-ncl hover:text-[#ffff00] transition-colors"
         >
           <ArrowLeft className="mr-2" size={20} />
-          Back to Work
+          BAck to woRk
         </Link>
       </div>
 
@@ -350,6 +424,16 @@ export default function DesignPage() {
       </button>
 
       {/* link/button at end of page to redirect to archived works */}
+      <div className="fixed bottom-8 right-8 z-50">
+        <Link 
+          href="https://soulmaets.tumblr.com/tagged/mine" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center text-white font-ncl hover:text-[#ffff00] transition-colors"
+        >
+          View Archived Works (2014-2018)
+        </Link>
+      </div>
       {/* <div className="fixed bottom-8 right-8 z-50">
             <Link 
                 href="/work/archive" 
