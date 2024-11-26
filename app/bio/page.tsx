@@ -330,7 +330,7 @@ const App: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.3 }}
                 className="text-center space-y-8"
               >
                 <footer className="fixed bottom-0 left-0 w-full p-4 flex justify-between items-center mt-8 text-white font-zen">
