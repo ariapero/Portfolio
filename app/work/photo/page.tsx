@@ -150,7 +150,7 @@ export default function PhotoPage() {
                     className="inline-flex items-center hover:underline hover:text-white transition-colors"
                   >
                     <ArrowLeft className="mr-2" size={20} />
-                    <p className="whitespace-nowrap">BACK</p>
+                    <p>BACK</p>
                     <p className="whitespace-nowrap">TO WORK</p>
                   </Link>
                 ) : (
@@ -170,11 +170,13 @@ export default function PhotoPage() {
                 <p className="whitespace-nowrap">SAMPLE WORKS</p>
               )}
             </div>
-            <div className="text-center">
-              <h1 className="text-xl font-bold mb-1">ARIAPERO/Photo</h1>
-              {/* <p className="text-yellow-500">▼42°21'36.36"N 71°5'39.12"E</p> */}
-              <p className="text-yellow-500">(* WIP/PLACEHOLDER PAGE *)</p>
-            </div>
+            {!isMobile && (
+              <div className="text-center">
+                <h1 className="text-xl font-bold mb-1">ARIAPERO/Photo</h1>
+                {/* <p className="text-yellow-500">▼42°21'36.36"N 71°5'39.12"E</p> */}
+                <p className="text-yellow-500">(* WIP/PLACEHOLDER PAGE *)</p>
+              </div>
+            )}
             <div className="text-right">
               {isMobile ? (
                 <Link
@@ -212,7 +214,7 @@ export default function PhotoPage() {
         {/* Main title */}
         <main className="flex-grow flex items-center mt-4">  {/* orig <main className="my-24"> */}
           <div className="grid grid-cols-4 gap-4">
-            <div className="text-red-600 text-[12vw] md:text-[8.2vw] leading-none font-bold tracking-tighter">  {/* orig text-[7rem] */}
+            <div className="text-red-600 text-[16vw] md:text-[8.2vw] leading-none font-bold tracking-tighter">  {/* orig text-[7rem] */}
               <Link
                 href="https://ariapero.myportfolio.com/photo"
                 target="_blank"
