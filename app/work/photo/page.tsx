@@ -170,7 +170,7 @@ export default function PhotoPage() {
               {isMobile ? (
                 <Link
                   href="/"
-                  className="text-sm hover:underline hover:text-white transition-colors"
+                  className="text-sm mb-1.5 hover:underline hover:text-white transition-colors"
                   rel="noopener noreferrer"
                 >
                   HOME
@@ -203,7 +203,7 @@ export default function PhotoPage() {
         {/* Main title */}
         <main className="flex-grow flex items-center mt-4">  {/* orig <main className="my-24"> */}
           <div className="grid grid-cols-4 gap-4">
-            <div className="text-red-600 text-[20vw] md:text-[8.2vw] leading-none font-bold tracking-tighter">  {/* orig text-[7rem] */}
+            <div className="text-red-600 text-[24vw] md:text-[8.2vw] leading-none font-bold tracking-tighter">  {/* orig text-[7rem] */}
               <Link
                 href="https://ariapero.myportfolio.com/photo"
                 target="_blank"
