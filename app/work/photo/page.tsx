@@ -144,24 +144,13 @@ export default function PhotoPage() {
           <div className="flex justify-between items-start text-xs">
             <div>
               <h2 className="text-sm mb-1.5">
-                {isMobile ? (
-                  <Link
-                    href="/work"
-                    className="inline-flex items-center hover:underline hover:text-white transition-colors"
-                  >
-                    <ArrowLeft className="mr-2" size={20} />
-                    <p>BACK</p>
-                    <p className="whitespace-nowrap">TO WORK</p>
-                  </Link>
-                ) : (
-                  <Link
-                    href="/work"
-                    className="inline-flex items-center hover:underline hover:text-white transition-colors"
-                  >
-                    <ArrowLeft className="mr-2" size={20} />
-                    BACK TO WORK
-                  </Link>
-                )}
+                <Link
+                  href="/work"
+                  className="inline-flex items-center hover:underline hover:text-white transition-colors"
+                >
+                  <ArrowLeft className="mr-2" size={20} />
+                  BACK TO WORK
+                </Link>
               </h2>
               <p className="whitespace-nowrap">2017 - 2022</p>
               {isMobile ? (
@@ -181,7 +170,7 @@ export default function PhotoPage() {
               {isMobile ? (
                 <Link
                   href="/"
-                  className="hover:underline hover:text-white transition-colors"
+                  className="text-sm hover:underline hover:text-white transition-colors"
                   rel="noopener noreferrer"
                 >
                   HOME
@@ -214,7 +203,7 @@ export default function PhotoPage() {
         {/* Main title */}
         <main className="flex-grow flex items-center mt-4">  {/* orig <main className="my-24"> */}
           <div className="grid grid-cols-4 gap-4">
-            <div className="text-red-600 text-[16vw] md:text-[8.2vw] leading-none font-bold tracking-tighter">  {/* orig text-[7rem] */}
+            <div className="text-red-600 text-[20vw] md:text-[8.2vw] leading-none font-bold tracking-tighter">  {/* orig text-[7rem] */}
               <Link
                 href="https://ariapero.myportfolio.com/photo"
                 target="_blank"
