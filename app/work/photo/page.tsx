@@ -154,6 +154,7 @@ export default function PhotoPage() {
               <Link
                 href="/"
                 className="hover:underline hover:text-white transition-colors"
+                rel="noopener noreferrer"
               >
                 <p>HTTPS://ARIAPERO</p>
                 <p>.GITHUB.IO</p>
@@ -211,7 +212,7 @@ export default function PhotoPage() {
                 >
                   HERE
                 </a>
-                'S MY EMAIL ¯\_(ツ)_/¯
+                &apos;S MY EMAIL ¯\_(ツ)_/¯
               </p>
             </div>
           </div>
