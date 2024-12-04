@@ -18,9 +18,9 @@ export default function Footnote() {
     if (pathname === '/work' || pathname === '/search' || pathname === '/wip') return (
         <div>
             <footer className="fixed bottom-0 left-0 w-full bg-transparent z-50 p-4 font-zen">
-                <p className="text-sm text-white opacity-80 text-center font-zen">&copy; {new Date().getFullYear()} Ari Peró. All rights reserved.</p>
+                <p className="text-xs sm:text-sm leading-tight text-white opacity-80 text-center font-zen">&copy; {new Date().getFullYear()} Ari Peró. All rights reserved.</p>
             </footer>
-            <div className="fixed bottom-0 left-0 w-full bg-transparent z-40 p-4 flex justify-between items-center z-50">
+            <div className="fixed bottom-0 left-0 w-full bg-transparent z-40 p-3 flex justify-between items-center z-50">
                 <Link href="/" className="text-white hover:underline text-xs">
                     <Image src="/apple-icon.png" alt="Home" width={6} height={6} className="w-6 h-6" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3))' }}/>
                 </Link>
