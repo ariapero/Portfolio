@@ -182,8 +182,8 @@ export default function WorksPage() {
           <Image
             src={bg}
             alt={`Background ${index + 1}`}
-            layout="fill"
-            objectFit="cover"
+            fill={true}
+            style={{ objectFit: "cover" }}
             quality={75}
             priority={index === 0}
             loading={index === 0 ? "eager" : "lazy"}
