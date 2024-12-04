@@ -123,7 +123,7 @@ export default function Page() {
                   </div>
                 </motion.main>
 
-                <div className="absolute right-8 inset-y-0 flex items-center">
+                <div className="absolute right-6 sm:right-8 inset-y-0 flex items-center">
                   <motion.div
                     className="flex flex-col gap-6 z-20"
                     initial={{ opacity: 0, x: 20 }}
