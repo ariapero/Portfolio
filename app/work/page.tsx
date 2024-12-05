@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { throttle } from 'lodash'
+import { ChevronUp, ChevronDown } from 'lucide-react'
 
 const backgrounds = [
   '/to_man.jpg',
@@ -96,8 +97,9 @@ export default function WorksPage() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
   const tickingRef = useRef(false)
-  const isFirefox = typeof navigator !== 'undefined' && /Firefox/i.test(navigator.userAgent)
-  const isIe = typeof navigator !== 'undefined' && (/MSIE/i.test(navigator.userAgent) || /Trident.*rv\:11\./i.test(navigator.userAgent))
+  const [isMobile, setIsMobile] = useState(false)
+  // const isFirefox = typeof navigator !== 'undefined' && /Firefox/i.test(navigator.userAgent)
+  // const isIe = typeof navigator !== 'undefined' && (/MSIE/i.test(navigator.userAgent) || /Trident.*rv\:11\./i.test(navigator.userAgent))
   const [showTopButton, setShowTopButton] = useState(false)
 
   const scrollSensitivitySetting = 30
@@ -130,7 +132,17 @@ export default function WorksPage() {
   }
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
     const handleScroll = throttle((event: WheelEvent) => {
+      if (isMobile) return
       event.preventDefault()
       
       if (!tickingRef.current) {
@@ -150,7 +162,7 @@ export default function WorksPage() {
     }, 60)
 
     const container = containerRef.current
-    if (container) {
+    if (container && !isMobile) {
       container.addEventListener('wheel', handleScroll, { passive: false })
     }
 
@@ -161,23 +173,32 @@ export default function WorksPage() {
         container.removeEventListener('wheel', handleScroll)
       }
     }
-  }, [currentSlide, isFirefox, isIe])
+  // }, [currentSlide, isFirefox, isIe])
+  }, [currentSlide, isMobile])
 
   return (
-    <div ref={containerRef} className="h-screen overflow-hidden">
+    // <div ref={containerRef} className="h-screen overflow-hidden">
+    <div ref={containerRef} className={`min-h-screen ${isMobile ? 'overflow-y-auto' : 'overflow-hidden'}`}>
       {backgrounds.map((bg, index) => (
         <section 
           key={index}
+          // className={`
+          //   fixed w-full bg-cover bg-no-repeat bg-center overflow-hidden will-change-transform backface-hidden
+          //   transition-transform duration-1200 ease-cubic-bezier
+          //   ${index === currentSlide ? 'z-10' : 'z-0'}
+          //   ${index < currentSlide ? 'down-scroll' : index > currentSlide ? 'up-scroll' : ''}
+          // `}
           className={`
-            fixed w-full bg-cover bg-no-repeat bg-center overflow-hidden will-change-transform backface-hidden
+            ${isMobile ? 'relative min-h-screen' : 'fixed w-full'}
+            bg-cover bg-no-repeat bg-center overflow-hidden will-change-transform backface-hidden
             transition-transform duration-1200 ease-cubic-bezier
             ${index === currentSlide ? 'z-10' : 'z-0'}
-            ${index < currentSlide ? 'down-scroll' : index > currentSlide ? 'up-scroll' : ''}
+            ${!isMobile && (index < currentSlide ? 'down-scroll' : index > currentSlide ? 'up-scroll' : '')}
           `}
-          style={{
+          style={ !isMobile ? {
             height: 'calc(100vh + 30vh)',
             transform: `translateY(${(index - currentSlide) * 100}vh)`,
-          }}
+          } : {}}
         >
           <Image
             src={bg}
@@ -189,10 +210,17 @@ export default function WorksPage() {
             loading={index === 0 ? "eager" : "lazy"}
           />
           <div className="absolute inset-0 bg-black bg-opacity-35"></div>
-          <div className={`
+          {/* <div className={`
             h-screen flex justify-center items-center flex-col text-center text-white font-inter
             transform transition-transform duration-[1700ms] ease-cubic-bezier
             ${index < currentSlide ? 'translate-y-[40vh]' : index > currentSlide ? 'translate-y-[30vh]' : 'translate-y-[0vh]'}
+          `}> */}
+          <div className={`
+            h-screen flex justify-center items-center flex-col text-center text-white font-inter
+            ${!isMobile ? `
+              transform transition-transform duration-[1700ms] ease-cubic-bezier
+              ${index < currentSlide ? 'translate-y-[40vh]' : index > currentSlide ? 'translate-y-[30vh]' : 'translate-y-[0vh]'}
+            ` : ''}
           `}>
             {index === 0 ? (
               <h1
@@ -203,7 +231,7 @@ export default function WorksPage() {
             ) : (
               <Link
                 href={projects[index]}
-                className="text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
+                className="text-5xl md:text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
                 style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                 {content[index].title}
               </Link>
@@ -212,7 +240,7 @@ export default function WorksPage() {
             {index === 0 && (
               <div className="mt-12 flex flex-col items-center">
                 <p
-                  className="text-xl mb-0 font-bold uppercase font-zen"
+                  className="text-xl md:text-xl mb-0 font-bold uppercase font-zen"
                   style={{ textShadow: '1px 1px 1px rgba(0,0,0, 0.5)' }}>
                     Table of Contents
                 </p>
@@ -231,7 +259,7 @@ export default function WorksPage() {
           </div>
         </section>
       ))}
-      {showTopButton && (
+      {!isMobile && showTopButton && (
         <div 
           className="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 group"
           title="Back to Top"
@@ -240,13 +268,29 @@ export default function WorksPage() {
             onClick={scrollToTop}
             className="bg-white bg-opacity-50 text-black p-3 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
+            <ChevronUp className="h-6 w-6" />
           </button>
           <span className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 whitespace-nowrap bg-white bg-opacity-50 text-black px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Back to Top
           </span>
+        </div>
+      )}
+      {isMobile && (
+        <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+          <button
+            onClick={previousItem}
+            disabled={currentSlide === 0}
+            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
+          >
+            <ChevronUp className="h-6 w-6" />
+          </button>
+          <button
+            onClick={nextItem}
+            disabled={currentSlide === backgrounds.length - 1}
+            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
+          >
+            <ChevronDown className="h-6 w-6" />
+          </button>
         </div>
       )}
     </div>
