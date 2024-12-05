@@ -224,14 +224,14 @@ export default function WorksPage() {
           `}>
             {index === 0 ? (
               <h1
-                className="text-[20vh] leading-tight font-sloop z-20"
+                className="text-9xl md:text-[20vh] leading-tight font-sloop z-20"
                 style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                   {content[index].title}
               </h1>
             ) : (
               <Link
                 href={projects[index]}
-                className="text-5xl md:text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
+                className="text-9xl md:text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
                 style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                 {content[index].title}
               </Link>
@@ -284,13 +284,13 @@ export default function WorksPage() {
           >
             <ChevronUp className="h-6 w-6" />
           </button>
-          <button
+          {/* <button
             onClick={nextItem}
             disabled={currentSlide === backgrounds.length - 1}
             className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
           >
             <ChevronDown className="h-6 w-6" />
-          </button>
+          </button> */}
         </div>
       )}
     </div>
