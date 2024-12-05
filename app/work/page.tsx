@@ -224,14 +224,14 @@ export default function WorksPage() {
           `}>
             {index === 0 ? (
               <h1
-                className="text-9xl md:text-[20vh] leading-tight font-sloop z-20"
+                className="text-7xl md:text-[20vh] leading-tight font-sloop z-20"
                 style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                   {content[index].title}
               </h1>
             ) : (
               <Link
                 href={projects[index]}
-                className="text-9xl md:text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
+                className="text-7xl md:text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
                 style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                 {content[index].title}
               </Link>
@@ -268,29 +268,13 @@ export default function WorksPage() {
             onClick={scrollToTop}
             className="bg-white bg-opacity-50 text-black p-3 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none"
           >
-            <ChevronUp className="h-6 w-6" />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
           </button>
           <span className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 whitespace-nowrap bg-white bg-opacity-50 text-black px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Back to Top
           </span>
-        </div>
-      )}
-      {isMobile && (
-        <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
-          <button
-            onClick={previousItem}
-            disabled={currentSlide === 0}
-            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
-          >
-            <ChevronUp className="h-6 w-6" />
-          </button>
-          {/* <button
-            onClick={nextItem}
-            disabled={currentSlide === backgrounds.length - 1}
-            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
-          >
-            <ChevronDown className="h-6 w-6" />
-          </button> */}
         </div>
       )}
     </div>

@@ -18,7 +18,7 @@ export default function Footnote() {
     if (pathname === '/work' || pathname === '/search' || pathname === '/wip') return (
         <div>
             <footer className="fixed bottom-0 left-0 w-full bg-transparent z-50 p-4 font-zen">
-                <p className="text-xs sm:text-sm leading-tight text-white opacity-80 text-center font-zen">&copy; {new Date().getFullYear()} Ari Peró. All rights reserved.</p>
+                <p className="text-xs sm:text-sm leading-tight text-white opacity-80 text-center font-zen">&copy; {new Date().getFullYear()} Ari Peró.</p>
             </footer>
             <div className="fixed bottom-0 left-0 w-full bg-transparent z-40 p-3 flex justify-between items-center z-50">
                 <Link href="/" className="text-white hover:underline text-xs">
