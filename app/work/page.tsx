@@ -246,7 +246,7 @@ export default function WorksPage() {
                   <button
                     key={i}
                     onClick={() => navigateToSlide(i + 1)}
-                    className="text-sm my-0 hover:underline focus:outline-none font-zen font-medium lowercase"
+                    className="text-base sm:text-sm my-0 hover:underline focus:outline-none font-zen font-medium lowercase"
                     style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.5)' }}
                   >
                     {i + 1}. {item.title}
@@ -259,7 +259,7 @@ export default function WorksPage() {
       ))}
       {showTopButton && (
         <div 
-          className="fixed right-8 top-4 md:top-1/2 transform translate-y-0 md:-translate-y-1/2 z-50 group"
+          className="fixed right-4 sm:right-8 top-4 md:top-1/2 transform translate-y-0 md:-translate-y-1/2 z-50 group"
           title="Back to Top"
         >
           <button
