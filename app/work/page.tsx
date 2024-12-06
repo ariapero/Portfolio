@@ -44,8 +44,8 @@ const content = [
     subtitle: "scroll down or use the links below to navigate"
   },
   {
-    title: "Web",  // add iwrising, gis project
-    subtitle: "web development and ui/ux design"
+    title: "Web",  // add iwrising, gis project "PUBLIC INTEREST TECHNOLOGY"
+    subtitle: "web dev, civic tech, and ui/ux design"
   },
   {
     title: "Video",
@@ -195,9 +195,7 @@ export default function WorksPage() {
         >
           <div 
             className="absolute inset-0"
-            style={{
-              height: 'calc(100vh + 25vh)',
-            }}
+            style={{ height: 'calc(100vh + 25vh)'}}
           >
             <Image
               src={bg}
@@ -210,10 +208,10 @@ export default function WorksPage() {
             />
           </div>
           <div className="absolute inset-0 bg-black bg-opacity-35"></div>
-          <div className="absolute inset-0 flex justify-center items-center flex-col text-center text-white font-inter">
+          <div className="absolute inset-0 flex justify-center items-center flex-col text-center text-white font-inter transform -translate-y-5 md:-translate-y-0">
             {index === 0 ? (
               <h1
-                className="z-20 text-[4vh] md:text-[20vh] leading-tight
+                className="z-20 text-[5vh] md:text-[20vh] leading-tight
                   tracking-tighter md:tracking-normal
                   uppercase md:capitalize
                   font-medium md:font-normal
@@ -230,7 +228,9 @@ export default function WorksPage() {
                   font-medium md:font-normal
                   font-zen md:font-sloop
                   hover:opacity-75 transition-opacity"
-                style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
+                style={ isMobile ? {
+                  textShadow: '1px 1px 2px rgba(0,0,0, 0.5)',
+                } : { textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                 {content[index].title}
               </Link>
             )}
@@ -238,7 +238,7 @@ export default function WorksPage() {
             {index === 0 && (
               <div className="mt-12 flex flex-col items-center z-10">
                 <p
-                  className="text-xl md:text-xl mb-0 font-bold uppercase font-zen"
+                  className="text-xl md:text-xl mb-0 font-bold uppercase font-zen tracking-tight md:tracking-normal"
                   style={{ textShadow: '1px 1px 1px rgba(0,0,0, 0.5)' }}>
                     Table of Contents
                 </p>
@@ -273,7 +273,7 @@ export default function WorksPage() {
           </span>
         </div>
       )}
-      {isMobile && (
+      {/* {isMobile && (
         <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-2">
           <button
             onClick={previousItem}
@@ -290,7 +290,7 @@ export default function WorksPage() {
             <ChevronDown className="h-6 w-6" />
           </button>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
