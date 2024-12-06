@@ -152,7 +152,6 @@ export default function WorksPage() {
   }, [])
 
   useEffect(() => {
-    let lastScrollTop = 0
     const handleScroll = throttle(() => {
       if (containerRef.current) {
         const scrollPosition = containerRef.current.scrollTop
