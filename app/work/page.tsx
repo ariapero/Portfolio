@@ -211,7 +211,7 @@ export default function WorksPage() {
           <div className="absolute inset-0 flex justify-center items-center flex-col text-center text-white font-inter transform -translate-y-5 md:-translate-y-0">
             {index === 0 ? (
               <h1
-                className="z-20 text-[5vh] md:text-[20vh] leading-tight
+                className="z-20 text-[4.5vh] md:text-[20vh] leading-tight
                   tracking-tighter md:tracking-normal
                   uppercase md:capitalize
                   font-medium md:font-normal
@@ -259,7 +259,7 @@ export default function WorksPage() {
       ))}
       {showTopButton && (
         <div 
-          className="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 group"
+          className="fixed right-8 top-4 md:top-1/2 transform translate-y-0 md:-translate-y-1/2 z-50 group"
           title="Back to Top"
         >
           <button
