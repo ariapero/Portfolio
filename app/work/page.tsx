@@ -96,17 +96,17 @@ const content = [
 export default function WorksPage() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
-  const tickingRef = useRef(false)
   const [showTopButton, setShowTopButton] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
-  const scrollSensitivitySetting = 30
-  const slideDurationSetting = 600
-
-  const slideDurationTimeout = (duration: number) => {
-    setTimeout(() => {
-      tickingRef.current = false
-    }, duration)
-  }
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const nextItem = () => {
     if (currentSlide < backgrounds.length - 1) {
@@ -126,64 +126,47 @@ export default function WorksPage() {
 
   const scrollToTop = () => {
     setCurrentSlide(0)
+    if (containerRef.current) {
+      containerRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   useEffect(() => {
-    const handleScroll = throttle((event: WheelEvent | TouchEvent) => {
-      event.preventDefault()
-      
-      if (!tickingRef.current) {
-        let delta = 0;
-        if (event instanceof WheelEvent) {
-          delta = -event.deltaY;
-        } else if (event instanceof TouchEvent) {
-          const touch = event.touches[0];
-          delta = touch.clientY - (containerRef.current?.getBoundingClientRect().top || 0);
-        }
-
-        if (delta <= -scrollSensitivitySetting) {
-          tickingRef.current = true
-          nextItem()
-          slideDurationTimeout(slideDurationSetting)
-        }
-        if (delta >= scrollSensitivitySetting) {
-          tickingRef.current = true
-          previousItem()
-          slideDurationTimeout(slideDurationSetting)
-        }
+    const handleScroll = throttle(() => {
+      if (containerRef.current) {
+        const scrollPosition = containerRef.current.scrollTop
+        const windowHeight = window.innerHeight
+        const currentSlideIndex = Math.round(scrollPosition / windowHeight)
+        setCurrentSlide(currentSlideIndex)
+        setShowTopButton(currentSlideIndex > 0)
       }
-    }, 60)
+    }, 100)
 
     const container = containerRef.current
     if (container) {
-      container.addEventListener('wheel', handleScroll, { passive: false })
-      container.addEventListener('touchmove', handleScroll, { passive: false })
+      container.addEventListener('scroll', handleScroll)
     }
-
-    setShowTopButton(currentSlide > 0)
 
     return () => {
       if (container) {
-        container.removeEventListener('wheel', handleScroll)
-        container.removeEventListener('touchmove', handleScroll)
+        container.removeEventListener('scroll', handleScroll)
       }
     }
-  }, [currentSlide])
+  }, [])
 
   return (
-    <div ref={containerRef} className="h-screen overflow-y-auto overflow-x-hidden snap-y snap-mandatory">
+    <div 
+      ref={containerRef} 
+      className="h-screen overflow-y-auto overflow-x-hidden snap-y snap-mandatory"
+      style={{ scrollSnapType: 'y mandatory' }}
+    >
       {backgrounds.map((bg, index) => (
         <section 
           key={index}
           className={`
-            fixed w-full h-screen bg-cover bg-no-repeat bg-center overflow-hidden will-change-transform backface-hidden
-            transition-transform duration-1200 ease-cubic-bezier snap-start
-            ${index === currentSlide ? 'z-10' : 'z-0'}
-            ${index < currentSlide ? 'down-scroll' : index > currentSlide ? 'up-scroll' : ''}
+            relative w-full h-screen bg-cover bg-no-repeat bg-center overflow-hidden
+            snap-start
           `}
-          style={{
-            transform: `translateY(${(index - currentSlide) * 100}vh)`,
-          }}
         >
           <Image
             src={bg}
@@ -195,19 +178,17 @@ export default function WorksPage() {
             loading={index === 0 ? "eager" : "lazy"}
           />
           <div className="absolute inset-0 bg-black bg-opacity-35"></div>
-          <div className={`
-            h-screen flex justify-center items-center flex-col text-center text-white font-inter
-          `}>
+          <div className="absolute inset-0 flex justify-center items-center flex-col text-center text-white font-inter">
             {index === 0 ? (
               <h1
-                className="text-3xl md:text-[20vh] leading-tight font-sloop z-20"
+                className="text-5xl md:text-[20vh] leading-tight font-sloop z-20"
                 style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                   {content[index].title}
               </h1>
             ) : (
               <Link
                 href={projects[index]}
-                className="text-3xl md:text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
+                className="text-5xl md:text-[20vh] leading-tight font-sloop z-20 hover:opacity-75 transition-opacity"
                 style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                 {content[index].title}
               </Link>
@@ -249,6 +230,24 @@ export default function WorksPage() {
           <span className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 whitespace-nowrap bg-white bg-opacity-50 text-black px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Back to Top
           </span>
+        </div>
+      )}
+      {isMobile && (
+        <div className="fixed left-4 bottom-4 z-50 flex flex-col gap-2">
+          <button
+            onClick={previousItem}
+            disabled={currentSlide === 0}
+            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
+          >
+            <ChevronUp className="h-6 w-6" />
+          </button>
+          <button
+            onClick={nextItem}
+            disabled={currentSlide === backgrounds.length - 1}
+            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
+          >
+            <ChevronDown className="h-6 w-6" />
+          </button>
         </div>
       )}
     </div>
