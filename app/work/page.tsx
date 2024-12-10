@@ -109,20 +109,6 @@ export default function WorksPage() {
     }
   }
 
-  // const nextItem = () => {
-  //   if (currentSlide < backgrounds.length - 1) {
-  //     setCurrentSlide(prev => prev + 1)
-  //     scrollToSlide(currentSlide + 1)
-  //   }
-  // }
-
-  // const previousItem = () => {
-  //   if (currentSlide > 0) {
-  //     setCurrentSlide(prev => prev - 1)
-  //     scrollToSlide(currentSlide - 1)
-  //   }
-  // }
-
   const navigateToSlide = (index: number) => {
     setCurrentSlide(index)
     scrollToSlide(index)
@@ -161,7 +147,7 @@ export default function WorksPage() {
         ])
         setVisibleSlides(newVisibleSlides)
       }
-    }, 100)
+    }, 80)
 
     const container = containerRef.current
     if (container) {
@@ -186,7 +172,7 @@ export default function WorksPage() {
   return (
     <div 
       ref={containerRef} 
-      className="h-screen overflow-y-auto overflow-x-hidden snap-y snap-mandatory"
+      className="h-screen overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-neutral-900"
       style={{ scrollSnapType: 'y mandatory', scrollBehavior: 'smooth' }}
     >
       {backgrounds.map((bg, index) => (
@@ -201,27 +187,6 @@ export default function WorksPage() {
             className="absolute inset-0"
             style={{ height: 'calc(100vh + 25vh)'}}
           >
-            {/* <Image
-              src={bg}
-              alt={`Background ${index + 1}`}
-              fill={true}
-              style={{ objectFit: "cover" }}
-              quality={75}
-              priority={index === 0}
-              loading={index === 0 ? "eager" : "lazy"}
-            /> */}
-            {/* {visibleSlides.has(index) && (
-              <Image
-                src={bg}
-                alt={`Background ${index + 1}`}
-                fill={true}
-                style={{ objectFit: "cover" }}
-                quality={isMobile ? 50 : 75}
-                priority={index === 0}
-                loading={index === 0 ? "eager" : "lazy"}
-                sizes="100vw"
-              />
-            )} */}
             <Image
               src={bg}
               alt={`Background ${index + 1}`}
@@ -241,12 +206,16 @@ export default function WorksPage() {
           <div className="absolute inset-0 flex justify-center items-center flex-col text-center text-white font-inter transform -translate-y-2 md:-translate-y-0">
             {index === 0 ? (
               <h1
-                className="z-20 text-[4.5vh] md:text-[20vh] leading-tight
+                className="z-20 text-[4.6vh] md:text-[20vh] leading-tight
                   tracking-tighter md:tracking-normal
                   uppercase md:capitalize
                   font-medium md:font-normal
-                  font-zen md:font-sloop"
-                style={{ textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
+                  font-zen md:font-sloop
+                  transform -translate-y-4 md:-translate-y-0
+                  -mb-4 md:mb-0"
+                style={ isMobile ? {
+                  textShadow: '1px 1px 2px rgba(0,0,0, 0.5)',
+                } : { textShadow: '1px 1px 2px rgba(0,0,0, 0.15)' }}>
                   {content[index].title}
               </h1>
             ) : (
@@ -264,7 +233,7 @@ export default function WorksPage() {
                 {content[index].title}
               </Link>
             )}
-            <p className="text-xl md:text-2xl mt-2 md:mt-4 font-zen font-medium z-10">{content[index].subtitle}</p>
+            <p className="text-xl md:text-2xl mt-2 md:mt-4 tracking-tight md:tracking-normal font-zen font-medium z-10">{content[index].subtitle}</p>
             {index === 0 && (
               <div className="mt-12 flex flex-col items-center z-10">
                 <p
@@ -303,24 +272,6 @@ export default function WorksPage() {
           </span>
         </div>
       )}
-      {/* {isMobile && (
-        <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-2">
-          <button
-            onClick={previousItem}
-            disabled={currentSlide === 0}
-            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
-          >
-            <ChevronUp className="h-6 w-6" />
-          </button>
-          <button
-            onClick={nextItem}
-            disabled={currentSlide === backgrounds.length - 1}
-            className="bg-white bg-opacity-50 text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300 focus:outline-none disabled:opacity-50"
-          >
-            <ChevronDown className="h-6 w-6" />
-          </button>
-        </div>
-      )} */}
     </div>
   )
 }
