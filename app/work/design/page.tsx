@@ -182,7 +182,7 @@ const ProjectSection = ({ project, index }: { project: typeof projects[0]; index
     <div ref={sectionRef} className="min-h-screen w-full flex items-center bg-black snap-start">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-16">
         <div
-          className="relative h-[50vh] md:h-[80vh] w-full"
+          className="relative -mt-12 sm:mt-0 h-[50vh] md:h-[80vh] w-full"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => setShowDetails(true)}
@@ -226,8 +226,8 @@ const ProjectSection = ({ project, index }: { project: typeof projects[0]; index
           )}
         </div>
 
-        <div className="flex flex-col justify-center text-[#ffff00] relative">
-          <div className="absolute top-0 md:top-4 right-0 md:right-4 font-ncl text-sm opacity-50">
+        <div className="flex flex-col justify-center text-[#ffff00] relative -mt-4 sm:mt-0">
+          <div className="hidden sm:block absolute -top-0.5 md:top-4 right-0 md:right-4 font-ncl text-sm opacity-50">
             {project.details}
           </div>
 
@@ -245,10 +245,10 @@ const ProjectSection = ({ project, index }: { project: typeof projects[0]; index
               >
                 <h2>{project.title}</h2>
               </button>
-              <p className="text-sm font-mono opacity-70">{project.year}</p>
+              <p className="text-xs sm:text-sm font-mono opacity-70">{project.year}</p>
             </div>
 
-            <p className="text-base md:text-lg tracking-tight md:tracking-normal max-w-md font-mono">{project.description}</p>
+            <p className="text-sm md:text-lg tracking-tight md:tracking-normal max-w-md font-mono">{project.description}</p>
 
             <button
               className="text-[#ffff00] underline font-mono hidden md:block"
@@ -382,7 +382,7 @@ const ArchiveSection = () => {
         transition={{ duration: 0.5 }}
         className="text-center space-y-8"
       >
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-mono text-[#ffff00]">
+        <h2 className="px-2 sm:px-0 text-3xl md:text-4xl lg:text-5xl font-mono text-[#ffff00]">
           Archived graphics work 2014-2018:
         </h2>
         <a
@@ -413,7 +413,7 @@ export default function DesignPage() {
       <div className="fixed top-4 md:top-8 left-4 md:left-8 z-50">
         <Link
           href="/work"
-          className="inline-flex items-center text-white font-ncl hover:text-[#ffff00] transition-colors"
+          className="inline-flex items-center text-white font-ncl text-sm sm:text-base hover:text-[#ffff00] transition-colors"
         >
           <ArrowLeft className="mr-2" size={20} />
           BAck to woRk
