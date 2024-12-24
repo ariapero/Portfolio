@@ -237,10 +237,10 @@ const ProjectSection = ({ project, index }: { project: typeof projects[0]; index
             transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-2 md:space-y-6"
           >
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <h3 className="text-xs font-mono opacity-50">{project.category}</h3>
               <button
-                className="text-left text-4xl md:text-6xl font-bold font-mono tracking-tighter hover:text-[#ff00ff] transition-colors"
+                className="text-left text-4xl md:text-6xl font-bold font-mono tracking-tighter leading-tighter hover:text-[#ff00ff] transition-colors"
                 onClick={() => setShowDetails(true)}
               >
                 <h2>{project.title}</h2>
