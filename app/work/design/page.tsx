@@ -182,7 +182,7 @@ const ProjectSection = ({ project, index }: { project: typeof projects[0]; index
     <div ref={sectionRef} className="min-h-screen w-full flex items-center bg-black snap-start">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-16">
         <div
-          className="relative -mt-12 sm:mt-0 h-[50vh] md:h-[80vh] w-full"
+          className="relative -mt-16 sm:mt-0 h-[50vh] md:h-[80vh] w-full"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => setShowDetails(true)}
@@ -431,7 +431,7 @@ export default function DesignPage() {
       </div>
 
       <button
-        className="fixed rounded-full bottom-[15%] md:bottom-1/2 right-4 sm:right-6 translate-y-0 md:translate-y-1/2 bg-white/15 md:bg-black/50 p-3 text-white z-50 hover:bg-gray-200 hover:text-[#ff00ff] transition-colors duration-300 focus:outline-none"
+        className="fixed rounded-full bottom-[25%] md:bottom-1/2 right-4 sm:right-6 translate-y-0 md:translate-y-1/2 bg-white/15 md:bg-black/50 p-3 text-white z-50 hover:bg-gray-200 hover:text-[#ff00ff] transition-colors duration-300 focus:outline-none"
         onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label="Scroll to top"
       >
