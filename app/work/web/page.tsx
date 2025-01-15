@@ -185,13 +185,19 @@ const projects: Project[] = [
         image: "/iwr/iwr-12.png?height=450&width=800",
         thumbnail: "/iwr/iwr-12.png?height=100&width=150",
       },
+      {
+        title: "IWR Final Presentation Slide 13",
+        description: "",
+        image: "/iwr/iwr-13.png?height=450&width=800",
+        thumbnail: "/iwr/iwr-13.png?height=100&width=150",
+      },
     ],
   },
   {
     title: "Who Polices Who? Mapping Police Geographies in Boston",
     description:
       "Conducted exploratory GIS analysis of spatial relationships between police officer residences and policing patterns in Boston. Used Python for data scraping and preprocessing of police incident reports. Created interactive maps and data visualizations to communicate findings on potential racial biases in policing distribution. Aimed to inform more equitable policing practices and resource allocation strategies. With Denyse Tan, Marina Ten Have, and Gabriel Rodríguez.",
-    technologies: ["Python", "QGIS", "PyQGIS", "Tableau", "GitHub", "Web/data scraping (from publicly available documents)"],
+    technologies: ["Python", "QGIS", "PyQGIS", "Tableau", "GitHub", "Web/data scraping (publicly available documents)"],
     pages: [
       {
         title: "",
